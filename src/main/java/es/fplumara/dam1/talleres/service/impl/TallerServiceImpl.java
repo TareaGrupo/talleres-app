@@ -2,9 +2,13 @@ package es.fplumara.dam1.talleres.service.impl;
 
 import es.fplumara.dam1.talleres.dto.ActualizarTallerDTO;
 import es.fplumara.dam1.talleres.dto.CrearTallerDTO;
+import es.fplumara.dam1.talleres.exception.BusinessRuleException;
 import es.fplumara.dam1.talleres.exception.DatosTallerException;
+import es.fplumara.dam1.talleres.exception.NotFoundException;
 import es.fplumara.dam1.talleres.model.EstadoInscripcion;
+import es.fplumara.dam1.talleres.model.Inscripcion;
 import es.fplumara.dam1.talleres.model.Taller;
+import es.fplumara.dam1.talleres.repository.InscripcionRepository;
 import es.fplumara.dam1.talleres.repository.TallerRepository;
 import es.fplumara.dam1.talleres.service.TallerService;
 
@@ -40,26 +44,72 @@ public class TallerServiceImpl implements TallerService {
 
     @Override
     public List<Taller> listarTalleres() {
-        return List.of();
+
+        return tallerRepository.findAll();
     }
 
     @Override
     public Taller obtenerTaller(Long id) {
-        return null;
+        Taller taller = tallerRepository.findById(id);
+        if (taller == null){
+            throw new NotFoundException("no existe");
+        }
+    return taller;
     }
 
     @Override
     public Taller atualizarTaller(Long id, ActualizarTallerDTO dto) {
+        Taller taller = tallerRepository.findById(id);
+        if (taller == null) {
+            throw new NotFoundException("no existe");
+        }
+
+        if (dto.getTitulo() != null){
+            if (dto.getTitulo().trim().isEmpty()){
+                throw new NotFoundException("El titulo no puede estar vacio");
+            }
+            taller.setTitulo(dto.getTitulo());
+
+        }
+        if (dto.getDescripcion() != null){
+            taller.setDescripcion(dto.getDescripcion());
+        }
+        if (dto.getUrl() != null){
+            taller.setUrl(dto.getUrl());
+        }
+        if (dto.getLugar() != null){
+            taller.setLugar(dto.getLugar());
+        }
+        // if (dto.getCupo() != null){ FALTA CAMBIAR CUPO A INTERGER
+        if (dto.getCupo() < 0){
+                throw new BusinessRuleException("Ek cupo no puede ser negativo");
+        }
+
+
+
+
+
         return null;
     }
 
     @Override
     public Taller cambiarEstadoTaller(Long id, EstadoInscripcion estadoInscripcion) {
-        return null;
+        Taller taller = tallerRepository.findById(id);
+        if (taller == null) {
+            throw new NotFoundException("no existe");
+        }
+        taller.setEstadoInscripcion(estadoInscripcion);
+        tallerRepository.save(taller);
+        return taller;
     }
 
     @Override
     public void eliminarTaller(Long id) {
+        Taller taller = tallerRepository.findById(id);
+        if (taller == null) {
+            throw new NotFoundException("no existe");
+        }
+        InscripcionRepository.findBy
 
     }
 }

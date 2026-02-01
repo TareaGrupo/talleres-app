@@ -30,6 +30,8 @@ public class Usuario {
 
     private Long id;
 
+    private String nombre;
+
     private Perfil perfil;
 
     private String discordUserId;
@@ -37,6 +39,8 @@ public class Usuario {
     private String curso;
 
     private String email;
+
+    public Usuario(){}
 
     public Usuario(Long id, Perfil perfil, String discordUserId, String curso, String email) {
         this.id = id;
@@ -55,6 +59,14 @@ public class Usuario {
 
     public Long getId() {
         return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setId(Long id) {

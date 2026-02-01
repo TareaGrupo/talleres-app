@@ -3,7 +3,9 @@ package es.fplumara.dam1.talleres.repository.impl;
 import es.fplumara.dam1.talleres.repository.UserRepository;
 import es.fplumara.dam1.talleres.model.Usuario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InMemoryUserRepository implements UserRepository {
@@ -56,5 +58,8 @@ public class InMemoryUserRepository implements UserRepository {
         usuarios.remove(id);
     }
 
-
+    @Override
+    public List<Usuario> findAll() {
+        return new ArrayList<>(usuarios.values());
+    }
 }
