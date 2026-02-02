@@ -40,26 +40,64 @@ public class TallerServiceImpl implements TallerService {
 
     @Override
     public List<Taller> listarTalleres() {
-        return List.of();
+        return tallerRepository.findAll();
     }
 
     @Override
     public Taller obtenerTaller(Long id) {
-        return null;
+        Taller taller = tallerRepository.findById(id);
+        if(taller == null){
+            throw new DatosTallerException("Taller no encontrado");
+        }
+        return  taller;
     }
 
     @Override
     public Taller atualizarTaller(Long id, ActualizarTallerDTO dto) {
-        return null;
+        Taller taller = tallerRepository.findById(id);
+        if (taller == null) {
+            throw new DatosTallerException("Taller no encontrado");
+        }
+        if (dto.getTitulo() != null) {
+            if (dto.getTitulo().isBlank()) {
+                throw new DatosTallerException("El titulo no puede estar vacio");
+            }
+            taller.setTitulo(dto.getTitulo());
+        }
+        if (dto.getDescripcion() != null) {
+            taller.setDescripcion(dto.getDescripcion());
+        }
+        if (dto.getUrl() != null) {
+            taller.setUrl(dto.getUrl());
+        }
+        if (dto.getLugar() != null) {
+            taller.setLugar(dto.getLugar());
+        }
+        if (dto.getCupo() != null) {
+            if (dto.getCupo() < 0) {
+                throw new DatosTallerException("El cupo no puede ser negativo");
+            }
+            taller.setCupo(dto.getCupo());
+        }
+        return tallerRepository.save(taller);
     }
 
     @Override
     public Taller cambiarEstadoTaller(Long id, EstadoInscripcion estadoInscripcion) {
-        return null;
+        Taller taller = tallerRepository.findById(id);
+        if(taller == null){
+            throw new DatosTallerException("Taller no encontrado");
+        }
+        taller.setEstadoInscripcion(estadoInscripcion);
+        return tallerRepository.save(taller);
     }
 
     @Override
     public void eliminarTaller(Long id) {
-
+        Taller taller = tallerRepository.findById(id);
+        if(taller == null) {
+            throw new DatosTallerException("Taller no encontrado");
+        }
+        tallerRepository.deleteById(id);
     }
 }

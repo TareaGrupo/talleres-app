@@ -28,6 +28,8 @@ package es.fplumara.dam1.talleres.model;
  */
 public class Usuario {
 
+    private String nombre;
+
     private Long id;
 
     private Perfil perfil;
@@ -38,12 +40,13 @@ public class Usuario {
 
     private String email;
 
-    public Usuario(Long id, Perfil perfil, String discordUserId, String curso, String email) {
+    public Usuario(Long id, Perfil perfil, String discordUserId, String curso, String email, String nombre) {
         this.id = id;
         this.perfil = perfil;
         this.discordUserId = discordUserId;
         this.curso = curso;
         this.email = email;
+        this.nombre = nombre;
     }
 
     public Usuario(Perfil perfil, String discordUserId, String curso, String email) {
@@ -52,6 +55,9 @@ public class Usuario {
         this.curso = curso;
         this.email = email;
     }
+    public String getNombre(){return nombre;}
+
+    public void setNombre(String nombre){this.nombre = nombre;}
 
     public Long getId() {
         return id;
