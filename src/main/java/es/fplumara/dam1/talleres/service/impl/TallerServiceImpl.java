@@ -109,7 +109,7 @@ public class TallerServiceImpl implements TallerService {
         if (taller == null) {
             throw new NotFoundException("no existe");
         }
-        InscripcionRepository.findBy
+        tallerRepository.deleteById(id);
 
     }
 }

@@ -93,14 +93,14 @@ public class UsuarioServiceimpl implements UsuarioService {
         if (cambiosUsuario.getEmail() != null){
             Usuario otro = userRepository.findByEmail(cambiosUsuario.getEmail());
             if (otro != null && !otro.getId().equals(id)){
-                throw new BusinessRuleException("Emai. duplicado");
+                throw new BusinessRuleException("Email duplicado");
             }
             usuario.setEmail(cambiosUsuario.getEmail());
         }
         if (cambiosUsuario.getDiscordUserId() != null){
             Usuario otro = userRepository.findByDiscordUserId(cambiosUsuario.getDiscordUserId());
             if (otro != null && !otro.getId().equals(id)){
-                throw new BusinessRuleException("Discord Dupliado");
+                throw new BusinessRuleException("Discord duplicado");
 
             }
             usuario.setDiscordUserId(cambiosUsuario.getDiscordUserId());
@@ -121,10 +121,11 @@ public class UsuarioServiceimpl implements UsuarioService {
             throw new NotFoundException("No existe este usuario");
 
         }
-        inscripcionRepository.deleteAllByUsuarioId(usuarioId);
-        userRepository.deleteById(usuarioId);
+        Inscripcion inscripcion = inscripcionRepository.findbyUsuarioId(usuarioId);
 
+        inscripcionRepository.deleteById(inscripcion.getId());
+        userRepository.deleteById(usuarioId);
         return usuario;
-        return null;
+
     }
 }
