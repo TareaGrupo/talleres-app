@@ -121,10 +121,11 @@ public class UsuarioServiceimpl implements UsuarioService {
             throw new NotFoundException("No existe este usuario");
 
         }
-        Inscripcion inscripcion = inscripcionRepository.findbyUsuarioId(usuarioId);
+        List<Inscripcion> inscripciones = inscripcionRepository.findbyUsuarioId(usuarioId);
 
-        inscripcionRepository.deleteById(inscripcion.getId());
-        userRepository.deleteById(usuarioId);
+        for (Inscripcion inscripcion : inscripciones){
+            inscripcionRepository.deleteById(inscripcion.getId());
+        }
         return usuario;
 
     }

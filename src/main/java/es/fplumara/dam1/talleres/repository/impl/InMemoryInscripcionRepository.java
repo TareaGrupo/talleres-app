@@ -63,21 +63,24 @@ public class InMemoryInscripcionRepository implements InscripcionRepository {
     }
 
     @Override
-    public Inscripcion findByTallerId(Long tallerId) {
+    public List<Inscripcion> findByTallerId(Long tallerId) {
+        List<Inscripcion> salida = new ArrayList<>();
         for (Inscripcion inscripcion : inscripciones.values()){
             if (inscripcion.getTallerId().equals(tallerId));
-            return inscripcion;
+            salida.add(inscripcion);
         }
-        return null;
+        return salida;
     }
 
     @Override
-    public Inscripcion findbyUsuarioId(Long usuarioId) {
+    public List<Inscripcion> findbyUsuarioId(Long usuarioId) {
+        List<Inscripcion> salida = new ArrayList<>();
         for (Inscripcion inscripcion : inscripciones.values()){
-            if (inscripcion.getUsuarioId().equals(usuarioId));
-            return inscripcion;
+            if (inscripcion.getUsuarioId().equals(usuarioId)){
+             salida.add(inscripcion);
+            }
         }
-        return null;
+        return salida;
     }
 
     @Override
@@ -86,17 +89,18 @@ public class InMemoryInscripcionRepository implements InscripcionRepository {
     }
 
     @Override
-    public Inscripcion findByTallerIdAndRol(Long tallerId, String Rol) {
+    public List<Inscripcion> findByTallerIdAndRol(Long tallerId, String Rol) {
         //se podria cambiar a una lista este
         // metodo
         // para devolver listas de
         // coincidencias y no una sola coincidencia
 
+        List<Inscripcion> salida = new ArrayList<>();
         for (Inscripcion inscripcion : inscripciones.values()) {
             if (inscripcion.getTallerId().equals(tallerId) && inscripcion.getRol().equals(Rol)) {
-                return inscripcion;
+                salida.add(inscripcion);
             }
         }
-        return null;
+        return salida;
     }
 }
