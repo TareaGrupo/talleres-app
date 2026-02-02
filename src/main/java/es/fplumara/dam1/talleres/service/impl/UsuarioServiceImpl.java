@@ -8,6 +8,8 @@ import es.fplumara.dam1.talleres.service.UsuarioService;
 
 import java.util.List;
 
+import static sun.util.locale.LocaleUtils.isEmpty;
+
 public class UsuarioServiceImpl implements UsuarioService {
 
     private UserRepository userRepository;
@@ -20,7 +22,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario crearUsuario(Usuario usuario) {
-        return userRepository.save(usuario);
+        if (crearUsuarioDto.getNpmbre() == null || crearUsuarioDTO.getNombre isEmpty());
     }
 
     @Override
@@ -58,7 +60,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             System.out.println("Usuario no encontrado");
             return;
         }
-        List<Inscripcion> inscripciones = inscripcionRepository.findByTallerIdAndUsuarioId(id);
+        List<Inscripcion> inscripciones = inscripcionRepository.findBy UsuarioId(id);
         for (Inscripcion i : inscripciones){
             inscripcionRepository.deleteById(i.getId());
         }
