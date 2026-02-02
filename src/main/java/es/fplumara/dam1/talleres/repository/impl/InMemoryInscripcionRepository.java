@@ -28,4 +28,39 @@ public class InMemoryInscripcionRepository implements InscripcionRepository {
         return null;
 
     }
+
+    @Override
+    public Inscripcion save(Inscripcion inscripcion) {
+        return null;
+    }
+
+    @Override
+    public Inscripcion findById(String id) {
+        return null;
+    }
+
+    @Override
+    public Inscripcion findeByTallerId(Long TallerId) {
+        return null;
+    }
+
+    @Override
+    public Inscripcion findUsuario(Long UsuarioId) {
+        return null;
+    }
+
+    @Override
+    public Inscripcion FindByTallerIdAndRol(Long TallerId, String Rol) {
+        return null;
+    }
+
+    @Override
+    public Inscripcion deleteById(String id) {
+        return null;
+    }
+
+    @Override
+    public Inscripcion deleteByTallerIdAndUsuarioId(Long tallerId, Long usuario) {
+        return null;
+    }
 }
