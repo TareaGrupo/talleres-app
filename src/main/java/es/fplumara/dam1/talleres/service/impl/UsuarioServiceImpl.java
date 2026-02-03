@@ -1,6 +1,7 @@
 package es.fplumara.dam1.talleres.service.impl;
 
 import es.fplumara.dam1.talleres.model.Inscripcion;
+import es.fplumara.dam1.talleres.model.Perfil;
 import es.fplumara.dam1.talleres.model.Usuario;
 import es.fplumara.dam1.talleres.repository.InscripcionRepository;
 import es.fplumara.dam1.talleres.repository.UserRepository;
@@ -21,8 +22,28 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario crearUsuario(Usuario usuario) {
-        if (crearUsuarioDto.getNpmbre() == null || crearUsuarioDTO.getNombre isEmpty());
+    public Usuario crearUsuario(CrearUsuarioDTO crearUsuarioDTO) {
+        if (crearUsuarioDTO.getNombre() == null || crearUsuarioDTO.getNombre().isEmpty()) {
+            throw new BusinessRuleException("Nombre no informado");
+        }
+        if (crearUsuarioDTO.getCurso() != null && !crearUsuarioDTO.getPerfil().equals(Perfil.ALUMNO)) {
+            throw new BusinessRuleException("Solo los alumnos pueden estar en curso");
+        }
+        if (crearUsuarioDTO.getEmail() != null) {
+            Usuario u = usuarioRepository.findByEmail(crearUsuarioDTO.getEmail());
+            if (u != null) {
+                throw new BusinessRuleException("El email ya existe");
+            }
+            if(crearUsuarioDTO.getDiscordUserId()!= null){
+                Usuario U = usuarioRepository.findByDiscordUserId(crearUsuarioDTO.getDiscordUserId());
+                if(u != null){
+                    throw new BusinessRuleException("El usuario de discrod ya existe");
+                }
+            }
+            Usuario nuevoUsuario = new Usuario(crearUsuarioDTO.getNombre(),crearUsuarioDTO.getPerfil(),crearUsuarioDTO.getDiscordUserId(),crearUsuarioDTO.getCurso(),crearUsuarioDTO.getEmail());
+            Usuario usuarioCreado = usuarioRepositorio.save(nuevoUsuario);
+            return usuarioCreado;
+        }
     }
 
     @Override
@@ -31,8 +52,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario buscarUsuario(Long id) {
-        return userRepository.findById(id);
+    public Usuario buscarUsuario(Long idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario);
+        if(usuario == null){
+            throw new NotFoundException("Usuario no encontrado");
+        }
+        return null;
     }
 
     @Override
