@@ -40,7 +40,7 @@ public class InMemoryInscripcionRepository implements InscripcionRepository {
     }
 
     @Override
-    public Inscripcion findeByTallerId(Long TallerId) {
+    public Inscripcion findByTallerId(Long TallerId) {
         return null;
     }
 
@@ -50,7 +50,7 @@ public class InMemoryInscripcionRepository implements InscripcionRepository {
     }
 
     @Override
-    public Inscripcion FindByTallerIdAndRol(Long TallerId, String Rol) {
+    public Inscripcion findByTallerIdAndRol(Long TallerId, String Rol) {
         return null;
     }
 

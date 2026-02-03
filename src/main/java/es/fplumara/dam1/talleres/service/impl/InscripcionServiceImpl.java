@@ -2,16 +2,17 @@ package es.fplumara.dam1.talleres.service.impl;
 
 import es.fplumara.dam1.talleres.exception.BusinessRuleException;
 import es.fplumara.dam1.talleres.exception.NotFoundException;
-import es.fplumara.dam1.talleres.model.Inscripcion;
-import es.fplumara.dam1.talleres.model.Rol;
-import es.fplumara.dam1.talleres.model.Taller;
-import es.fplumara.dam1.talleres.model.Usuario;
+import es.fplumara.dam1.talleres.model.*;
 import es.fplumara.dam1.talleres.repository.InscripcionRepository;
 import es.fplumara.dam1.talleres.repository.TallerRepository;
 import es.fplumara.dam1.talleres.repository.UserRepository;
 import es.fplumara.dam1.talleres.service.InscripcionService;
 
 import java.util.List;
+import java.util.Optional;
+
+import static es.fplumara.dam1.talleres.model.EstadoInscripcion.ABIERTO;
+import static es.fplumara.dam1.talleres.model.EstadoInscripcion.CERRADO;
 
 public class InscripcionServiceImpl implements InscripcionService {
 
@@ -29,18 +30,27 @@ public class InscripcionServiceImpl implements InscripcionService {
     public Inscripcion inscribirUsuario(Long tallerid, Long usuarioid, Rol rol) {
         Taller T = tallerRepository.findById(tallerid);
         Usuario u = usuariorepository.findById(usuarioid);
-        if( T == null){
+        Inscripcion I = inscripcionRepository.findByTallerIdAndUsuarioId(tallerid, usuarioid);
+
+        if (T == null) {
             throw new NotFoundException("Taller inexistente");
         }
 
-        if( u == null){
+        if (u == null) {
             throw new NotFoundException("Usuario inexistente");
         }
-        if (T.getEstadoInscripcion() != "ABIERTO"){
+        if (T.getEstadoInscripcion() == CERRADO) {
             throw new BusinessRuleException("No hay inscriociones abiertas");
         }
-
-
+        if (I != null) {
+            throw new BusinessRuleException("el usuario ya esta inscrito en este taller");
+        }
+        if (rol == Rol.RESPONSABLE) {
+            if (u.getPerfil() != Perfil.PROFESOR) {
+                throw new BusinessRuleException("Debe ser profesor para ser responsable") {
+                }
+            }
+        }
     }
 
     @Override
@@ -50,16 +60,18 @@ public class InscripcionServiceImpl implements InscripcionService {
 
     @Override
     public Inscripcion expulsarUsuario(Long tallerid, Long usuarioid) {
-        return null;
+        Inscripcion inscripcion = inscripcionRepository.findByTallerIdAndUsuarioId(tallerid, usuarioid);
+        if (inscripcion == null) {
+            throw new NotFoundException("La inscripcion no existe");
+        }
     }
 
     @Override
     public List<Inscripcion> listarInscripcionesDeTaller(Long tallerid) {
-        if (TallerRepository.findById(tallerid) == null){
-            throw new NotFoundException("El taller no existe");
+        Optional<Taller> taller = TallerRepository.findById(tallerid);
+        if( taller != null){
+            throw new NotFoundException("EL taller no en encontrado");
         }
-
-        return InscripcionRepository.findByTallerId(tallerid);
     }
 
     @Override
