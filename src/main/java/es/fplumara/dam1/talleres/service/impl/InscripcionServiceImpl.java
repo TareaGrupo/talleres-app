@@ -65,7 +65,7 @@ public class InscripcionServiceImpl implements InscripcionService {
 
         }
 
-
+        return inscripciones;
     }
 
     @Override

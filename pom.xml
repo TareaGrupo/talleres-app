@@ -19,6 +19,9 @@
         <logback.version>1.5.26</logback.version>
         <jackson.version>2.21.0</jackson.version>
         <commons-csv.version>1.14.1</commons-csv.version>
+
+        <!-- Discord -->
+        <jda.version>6.3.0</jda.version> <!-- JDA actual -->
     </properties>
 
     <dependencies>
@@ -28,6 +31,13 @@
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- JDA (Discord) -->
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>${jda.version}</version>
         </dependency>
 
         <!-- Parameterized Tests -->
