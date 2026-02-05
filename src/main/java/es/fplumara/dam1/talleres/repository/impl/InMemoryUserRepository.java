@@ -1,6 +1,6 @@
-package es.fplumara.dam1.talleres.repository.impl;
+package es.fplumara.dam1.talleres.service.impl;
 
-import es.fplumara.dam1.talleres.repository.UserRepository;
+
 import es.fplumara.dam1.talleres.model.Usuario;
 
 import java.util.ArrayList;

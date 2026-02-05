@@ -1,7 +1,6 @@
 package es.fplumara.dam1.talleres.repository;
 
 import es.fplumara.dam1.talleres.model.Inscripcion;
-import es.fplumara.dam1.talleres.model.Rol;
 
 import java.util.List;
 
