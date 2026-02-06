@@ -1,7 +1,8 @@
-package es.fplumara.dam1.talleres.service.impl;
+package es.fplumara.dam1.talleres.repository.impl;
 
 
 import es.fplumara.dam1.talleres.model.Usuario;
+import es.fplumara.dam1.talleres.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -6,9 +6,7 @@ import es.fplumara.dam1.talleres.exception.BusinessRuleException;
 import es.fplumara.dam1.talleres.exception.DatosTallerException;
 import es.fplumara.dam1.talleres.exception.NotFoundException;
 import es.fplumara.dam1.talleres.model.EstadoInscripcion;
-import es.fplumara.dam1.talleres.model.Inscripcion;
 import es.fplumara.dam1.talleres.model.Taller;
-import es.fplumara.dam1.talleres.repository.InscripcionRepository;
 import es.fplumara.dam1.talleres.repository.TallerRepository;
 import es.fplumara.dam1.talleres.service.TallerService;
 

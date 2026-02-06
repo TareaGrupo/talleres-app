@@ -1,5 +1,6 @@
 package es.fplumara.dam1.talleres.service.impl;
 
+import es.fplumara.dam1.talleres.dto.MiembrosPorPerfilDTO;
 import es.fplumara.dam1.talleres.exception.NotFoundException;
 import es.fplumara.dam1.talleres.model.*;
 import es.fplumara.dam1.talleres.repository.InscripcionRepository;
@@ -7,7 +8,6 @@ import es.fplumara.dam1.talleres.repository.TallerRepository;
 import es.fplumara.dam1.talleres.repository.UserRepository;
 import es.fplumara.dam1.talleres.service.InscripcionService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InscripcionServiceImpl implements InscripcionService {
@@ -42,30 +42,17 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
 
     @Override
-    public List<Inscripcion> verMiembrosAgrupadosPorTaller(Long tallerid) {
+    public MiembrosPorPerfilDTO verMiembrosAgrupadosPorTaller(Long tallerid) {
         if (TallerRepository.findById(tallerid) == null){
             throw new NotFoundException("Taller no existe");
         }
-            List<Usuario> alumno = new ArrayList<>();
-            List<Usuario> profesor = new ArrayList<>();
-            List<Usuario> invitado = new ArrayList<>();
-         List<Inscripcion> inscripciones = InscripcionRepository.findByTallerId(tallerid);
+        List<Inscripcion> inscripciones = InscripcionRepository.findByTallerId(tallerid);
 
-        for (Inscripcion inscripcion : inscripciones){
-            Usuario usuario = UseRepository.findById(inscripcion.getUsuarioId());
-            if (usuario.getPerfil() == Perfil.ALUMNO){
-                alumno.add(usuario);
-            }
-            else if (usuario.getPerfil() == Perfil.PROFESOR){
-                profesor.add(usuario);
-            }
-            else if (usuario.getPerfil() == Perfil.INVITADO){
-                invitado.add(usuario);
-            }
 
-        }
 
-        return inscripciones;
+
+
+            return ;
     }
 
     @Override

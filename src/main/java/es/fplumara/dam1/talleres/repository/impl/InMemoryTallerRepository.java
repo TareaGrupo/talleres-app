@@ -1,6 +1,7 @@
-package es.fplumara.dam1.talleres.service.impl;
+package es.fplumara.dam1.talleres.repository.impl;
 
 import es.fplumara.dam1.talleres.model.Taller;
+import es.fplumara.dam1.talleres.repository.TallerRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
