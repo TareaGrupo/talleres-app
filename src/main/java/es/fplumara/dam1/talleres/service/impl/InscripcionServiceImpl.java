@@ -8,6 +8,7 @@ import es.fplumara.dam1.talleres.repository.TallerRepository;
 import es.fplumara.dam1.talleres.repository.UserRepository;
 import es.fplumara.dam1.talleres.service.InscripcionService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InscripcionServiceImpl implements InscripcionService {
@@ -42,17 +43,17 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
 
     @Override
-    public MiembrosPorPerfilDTO verMiembrosAgrupadosPorTaller(Long tallerid) {
+    public List<Inscripcion> verMiembrosAgrupadosPorTaller(Long tallerid) {
         if (TallerRepository.findById(tallerid) == null){
             throw new NotFoundException("Taller no existe");
         }
-        List<Inscripcion> inscripciones = InscripcionRepository.findByTallerId(tallerid);
+
+        List<Inscripcion> aa = new ArrayList<>();
 
 
 
 
-
-            return ;
+            return aa;
     }
 
     @Override

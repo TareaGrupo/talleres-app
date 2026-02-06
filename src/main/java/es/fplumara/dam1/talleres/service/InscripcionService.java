@@ -9,7 +9,7 @@ import java.util.List;
 public interface InscripcionService {
     List<Inscripcion> listarInscripcionesDeUsuario(Long usuarioId);
 
-    MiembrosPorPerfilDTO verMiembrosAgrupadosPorTaller(Long tallerid);
+    List<Inscripcion> verMiembrosAgrupadosPorTaller(Long tallerid);
 
     List<Inscripcion> verResponsables(Long tallerid);
 
